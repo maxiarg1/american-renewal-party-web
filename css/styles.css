@@ -79,6 +79,13 @@ ul { list-style: none; }
 .btn-outline { border: 2px solid var(--white); color: var(--white); }
 .btn-outline:hover { background-color: var(--white); color: var(--steel-blue); }
 
+/* NUEVO: Botón de contorno azul para fondos claros (Menú) */
+.btn-outline-blue { border: 2px solid var(--steel-blue); color: var(--steel-blue); }
+.btn-outline-blue:hover { background-color: var(--steel-blue); color: var(--white); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(31, 58, 95, 0.3); }
+
+.btn-white { background-color: var(--white); color: var(--steel-blue); }
+.btn-white:hover { background-color: var(--silver-gray); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3); }
+
 .btn-white { background-color: var(--white); color: var(--steel-blue); }
 .btn-white:hover { background-color: var(--silver-gray); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3); }
 
