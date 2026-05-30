@@ -60,10 +60,19 @@
             <span class="es-text">Estados Unidos no necesita más guerra política. Necesita estabilidad, resultados y un liderazgo capaz de unir nuevamente a los estadounidenses.</span>
             
             <div class="hero-buttons">
-                <a href="#policies" class="btn btn-white">
+                <!-- Botón restaurado: Read Our Plan -->
+                <a href="#policies" class="btn btn-outline">
                     Read Our Plan
                     <span class="es-text">Lee nuestro plan</span>
                 </a>
+                
+                <!-- Botón de la canción -->
+                <button id="togglePlayerBtn" class="btn btn-white">
+                    <i class="fa-solid fa-music" style="margin-right: 8px;"></i> Campaign Anthem
+                    <span class="es-text">Himno de Campaña</span>
+                </button>
+                
+                <!-- Botón de los candidatos -->
                 <a href="#ticket" class="btn btn-red">
                     Meet the Candidates
                     <span class="es-text">Conoce a los candidatos</span>
@@ -237,5 +246,83 @@
         </div>
     </footer>
 
+    <!-- ========================================
+         7. FLOATING AUDIO PLAYER & JAVASCRIPT
+         ======================================== -->
+    <audio id="campaignAudio" loop>
+        <!-- Asegúrate de tener tu archivo mp3 en esta ruta -->
+        <source src="assets/audio/cancion-campana.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div id="campaignPlayer" class="campaign-player hidden">
+        <div class="player-controls">
+            <button id="playPauseBtn"><i class="fa-solid fa-play"></i></button>
+        </div>
+        <div class="player-info">
+            <span class="song-title">Uniting to Move Forward</span>
+            <span class="song-subtitle">Campaign Anthem <span class="es-text-inline">- Himno Oficial</span></span>
+        </div>
+        <div class="player-close">
+            <button id="closePlayerBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="player-progress-container">
+            <div id="playerProgress" class="player-progress"></div>
+        </div>
+    </div>
+
+    <!-- Script del reproductor -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('campaignAudio');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const playPauseIcon = playPauseBtn.querySelector('i');
+            const togglePlayerBtn = document.getElementById('togglePlayerBtn');
+            const campaignPlayer = document.getElementById('campaignPlayer');
+            const closePlayerBtn = document.getElementById('closePlayerBtn');
+            const progressBar = document.getElementById('playerProgress');
+
+            // Función para alternar entre reproducir y pausar
+            function togglePlay() {
+                if (audio.paused) {
+                    audio.play().catch(e => console.log("Reproducción bloqueada por el navegador."));
+                    playPauseIcon.classList.remove('fa-play');
+                    playPauseIcon.classList.add('fa-pause');
+                } else {
+                    audio.pause();
+                    playPauseIcon.classList.remove('fa-pause');
+                    playPauseIcon.classList.add('fa-play');
+                }
+            }
+
+            // Al hacer clic en "Campaign Anthem" en la sección Hero
+            togglePlayerBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                campaignPlayer.classList.remove('hidden'); // Mostrar reproductor
+                if (audio.paused) {
+                    togglePlay(); // Reproducir si está pausado
+                }
+            });
+
+            // Botón de play/pause del reproductor flotante
+            playPauseBtn.addEventListener('click', togglePlay);
+
+            // Botón de cerrar (X)
+            closePlayerBtn.addEventListener('click', () => {
+                audio.pause();
+                playPauseIcon.classList.remove('fa-pause');
+                playPauseIcon.classList.add('fa-play');
+                campaignPlayer.classList.add('hidden'); // Ocultar reproductor
+            });
+
+            // Actualizar la barra de progreso
+            audio.addEventListener('timeupdate', () => {
+                if (audio.duration) {
+                    const progressPercent = (audio.currentTime / audio.duration) * 100;
+                    progressBar.style.width = progressPercent + '%';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
