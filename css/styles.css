@@ -86,9 +86,6 @@ ul { list-style: none; }
 .btn-white { background-color: var(--white); color: var(--steel-blue); }
 .btn-white:hover { background-color: var(--silver-gray); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3); }
 
-.btn-white { background-color: var(--white); color: var(--steel-blue); }
-.btn-white:hover { background-color: var(--silver-gray); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3); }
-
 /* ========================================
    1. HEADER / NAVBAR
    ======================================== */
@@ -105,9 +102,43 @@ header {
 }
 .logo { font-size: 1.6rem; font-weight: 700; color: var(--steel-blue); display: flex; align-items: center; gap: 10px; }
 .logo i { color: var(--dark-red); }
-.nav-links { display: flex; gap: 30px; }
-.nav-links a { font-weight: 600; color: var(--steel-blue); transition: color 0.3s ease; }
-.nav-links a:hover { color: var(--dark-red); }
+
+/* ACTUALIZACIÓN: Mejoras visuales al menú de navegación */
+.nav-links { display: flex; gap: 10px; } /* Reducimos el gap porque ahora los enlaces tienen padding */
+.nav-links a {
+    font-weight: 600;
+    color: var(--steel-blue);
+    padding: 8px 16px; /* Amplía la zona de clic */
+    border-radius: 8px; /* Bordes redondeados sutiles */
+    transition: all 0.3s ease;
+    position: relative; /* Necesario para la animación del subrayado */
+}
+
+/* Efecto hover: Cambio de color de letra y fondo sutil */
+.nav-links a:hover {
+    color: var(--dark-red);
+    background-color: rgba(31, 58, 95, 0.04); /* Fondo azuladito transparente */
+}
+
+/* Subrayado animado (Línea roja) */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 4px; /* Posición del subrayado */
+    left: 50%; /* Arranca en el centro */
+    background-color: var(--dark-red);
+    transition: all 0.3s ease;
+    transform: translateX(-50%); /* Lo mantiene centrado mientras crece */
+    border-radius: 2px;
+}
+
+/* Al hacer hover, la línea crece al 60% del ancho de la palabra */
+.nav-links a:hover::after {
+    width: 60%;
+}
+
 .nav-actions { display: flex; gap: 15px; align-items: center; }
 
 /* ========================================

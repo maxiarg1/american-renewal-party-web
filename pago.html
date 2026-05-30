@@ -1,0 +1,63 @@
+<!-- Archivo: pago.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pasarela de Pago Segura (DEMO)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-md w-96 text-center" id="payment-card">
+        <h2 class="text-xl font-semibold mb-6 text-gray-800">Simulador de Donación</h2>
+        
+        <form id="payForm" class="space-y-4 text-left">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Tarjeta Ficticia</label>
+                <input type="text" placeholder="4242 4242 4242 4242" class="mt-1 block w-full p-2 border rounded-md" required>
+            </div>
+            <div class="flex space-x-4">
+                <div class="w-1/2">
+                    <label class="block text-sm font-medium text-gray-700">Vence</label>
+                    <input type="text" placeholder="12/30" class="mt-1 block w-full p-2 border rounded-md" required>
+                </div>
+                <div class="w-1/2">
+                    <label class="block text-sm font-medium text-gray-700">CVC</label>
+                    <input type="text" placeholder="123" class="mt-1 block w-full p-2 border rounded-md" required>
+                </div>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                Simular Pago Extraordinario
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('payForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const card = document.getElementById('payment-card');
+            
+            // Animación de procesamiento
+            card.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-12">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+                    <p class="text-gray-600 font-medium">Procesando donación ficticia...</p>
+                </div>
+            `;
+            
+            // Simular retraso de red y mostrar éxito
+            setTimeout(() => {
+                card.innerHTML = `
+                    <div class="text-center py-6">
+                        <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                            <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900">¡Donación Exitosa!</h3>
+                        <p class="text-sm text-gray-500 mt-2">Gracias por probar el entorno de desarrollo.</p>
+                        <a href="index.html" class="mt-6 inline-block bg-gray-800 text-white px-4 py-2 rounded-md text-sm">Volver al inicio</a>
+                    </div>
+                `;
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
